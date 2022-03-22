@@ -1,0 +1,7 @@
+{
+  "name": "final-project-gbc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

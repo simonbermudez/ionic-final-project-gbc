@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import friends from '../data/friends';
 import missions from '../data/missions';
 import user from '../data/user';
+import { Friend } from '../models/friend';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,25 @@ export class DatabaseService {
 
   getFriendById(id: number) {
     return this.getFriends().find(f => f.id == id)
+  }
+
+  updateFriend(friend: Friend) {
+    let friendsStorage = this.getFriends();
+    friendsStorage[friendsStorage.findIndex(f => f.id === friend.id)] = friend;
+    localStorage.setItem('friends', JSON.stringify(friendsStorage));
+  }
+
+  deleteFriendById(id: number) {
+    let friendsStorage = this.getFriends();
+    friendsStorage.splice(friendsStorage.findIndex(f => f.id === id), 1);
+    localStorage.setItem('friends', JSON.stringify(friendsStorage));
+  }
+
+  addFriend(friend: Friend) {
+    let friendsStorage = this.getFriends();
+    friend = {...friend, id: friendsStorage.at(-1).id + 1, achievements: []}
+    friendsStorage.push(friend);
+    localStorage.setItem('friends', JSON.stringify(friendsStorage));
   }
 
   getUser() {

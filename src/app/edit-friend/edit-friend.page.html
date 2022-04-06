@@ -5,7 +5,35 @@
 </ion-header>
 
 <ion-content>
-  {{ friend | json}}
+  <form [formGroup]="friendForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input formControlName="phone_number" type="text"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="success" expand="block">Edit Friend</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="deleteFriend(friend.id)" color="danger" expand="block">Delete Friend</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  
   <br>
-  <ion-button (click)="goBack()">Go Back</ion-button>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="goBack()"expand="block">Go Back</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

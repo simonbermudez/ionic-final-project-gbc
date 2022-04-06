@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>add-friend</ion-title>
+    <ion-title>Add Friend</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="friendForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input formControlName="phone_number" type="text"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="success" expand="block">Add Friend</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  
+  <br>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="goBack()"expand="block">Go Back</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

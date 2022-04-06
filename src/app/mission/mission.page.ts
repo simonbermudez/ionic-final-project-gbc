@@ -12,7 +12,9 @@ import { DatabaseService } from '../shared/database.service';
 export class MissionPage implements OnInit {
   mission: Mission
 
-  constructor(private navController: NavController, private actRoute: ActivatedRoute, private db: DatabaseService) { 
+  constructor(private navController: NavController, 
+              private actRoute: ActivatedRoute, 
+              private db: DatabaseService) { 
     this.mission = db.getMissionById(actRoute.snapshot.params.id)
   }
 

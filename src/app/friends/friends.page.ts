@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Friend } from '../models/friend';
 import { DatabaseService } from '../shared/database.service';
 
@@ -11,11 +12,15 @@ export class FriendsPage implements OnInit {
 
   friends: Friend[] = []
 
-  constructor(private db: DatabaseService) { 
-    this.friends = this.db.getFriends()
+  constructor(private db: DatabaseService, private router: Router) { 
   }
 
   ngOnInit() {
+    // TODO: Fix This, gets called too many times, not efficient
+    this.router.events.pipe().subscribe(() => {
+      this.friends = this.db.getFriends()
+  });
+    
     
   }
 

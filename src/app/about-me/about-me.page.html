@@ -5,6 +5,8 @@
 </ion-header>
 
 <ion-content>
+  {{user | json}}
+  <br>
   <ion-button [routerLink]="['/about-us']">
     <ion-label>About the Project</ion-label>
   </ion-button>

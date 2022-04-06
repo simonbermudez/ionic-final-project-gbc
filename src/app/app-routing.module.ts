@@ -33,6 +33,18 @@ const routes: Routes = [
   {
     path: 'add-mission',
     loadChildren: () => import('./add-mission/add-mission.module').then( m => m.AddMissionPageModule)
+  },
+  {
+    path: 'about-friend',
+    loadChildren: () => import('./about-friend/about-friend.module').then( m => m.AboutFriendPageModule)
+  },
+  {
+    path: 'edit-friend',
+    loadChildren: () => import('./edit-friend/edit-friend.module').then( m => m.EditFriendPageModule)
+  },
+  {
+    path: 'add-friend',
+    loadChildren: () => import('./add-friend/add-friend.module').then( m => m.AddFriendPageModule)
   }
 ];
 @NgModule({

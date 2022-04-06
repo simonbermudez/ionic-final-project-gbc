@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import friends from '../data/friends';
+import missions from '../data/missions';
 import user from '../data/user';
 
 @Injectable({
@@ -21,9 +22,8 @@ export class DatabaseService {
     return JSON.parse(friendsStorage)
   }
 
-  getFriendsById(id: number) {
-    let friends = JSON.parse(localStorage.getItem('friends'));
-    return friends.find(f => f.id == id)
+  getFriendById(id: number) {
+    return this.getFriends().find(f => f.id == id)
   }
 
   getUser() {
@@ -34,5 +34,19 @@ export class DatabaseService {
     }
     return JSON.parse(userStorage)
   }
+
+  getMissions() {
+    let missionsStorage = localStorage.getItem('missions');
+    if(!missionsStorage) {
+      localStorage.setItem('missions', JSON.stringify(missions))
+      return missions
+    }
+    return JSON.parse(missionsStorage)
+  }
+
+  getMissionById(id: number) {
+    return this.getMissions().find(m => m.id == id)
+  }
+
 
 }

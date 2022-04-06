@@ -13,7 +13,7 @@ export class AboutFriendPage implements OnInit {
   friend: Friend;
 
   constructor(private navController: NavController, private actRoute: ActivatedRoute, private db: DatabaseService) { 
-    this.friend = db.getFriendsById(actRoute.snapshot.params.id)
+    this.friend = db.getFriendById(actRoute.snapshot.params.id)
   }
 
   ngOnInit() {

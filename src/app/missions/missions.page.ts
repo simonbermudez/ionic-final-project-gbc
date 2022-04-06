@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Mission } from '../models/mission';
+import { DatabaseService } from '../shared/database.service';
 
 @Component({
   selector: 'app-missions',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./missions.page.scss'],
 })
 export class MissionsPage implements OnInit {
+  missions: Mission[];
 
-  constructor() { }
+  constructor(private db: DatabaseService) { 
+    this.missions = db.getMissions()
+  }
 
   ngOnInit() {
   }

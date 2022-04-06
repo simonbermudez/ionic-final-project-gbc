@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Friend } from '../models/friend';
+import { DatabaseService } from '../shared/database.service';
 
 @Component({
   selector: 'app-friends',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsPage implements OnInit {
 
-  constructor() { }
+  friends: Friend[] = []
+
+  constructor(private db: DatabaseService) { 
+    this.friends = this.db.getFriends()
+  }
 
   ngOnInit() {
+    
   }
 
 }

@@ -3,69 +3,77 @@ import friends from '../data/friends';
 import missions from '../data/missions';
 import user from '../data/user';
 import { Friend } from '../models/friend';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
+  private _storage: Storage | null = null;
 
-  constructor() {
-
-
+  constructor(public storage: Storage) {
+    this.init();
   }
 
-  getFriends() {
-    let friendsStorage = localStorage.getItem('friends');
+  async init() {
+    const storage = await this.storage.create();
+    this._storage = storage;
+  }
+
+  async getFriends() {
+    let friendsStorage = await this._storage?.get('friends');
     if(!friendsStorage) {
-      localStorage.setItem('friends', JSON.stringify(friends))
+      await this._storage?.set('friends', JSON.stringify(friends))
       return friends
     }
     return JSON.parse(friendsStorage)
   }
 
-  getFriendById(id: number) {
-    return this.getFriends().find(f => f.id == id)
+  async getFriendById(id: number) {
+    const friends = await this.getFriends();
+    return friends.find(f => f.id == id)
   }
 
-  updateFriend(friend: Friend) {
-    let friendsStorage = this.getFriends();
+  async updateFriend(friend: Friend) {
+    let friendsStorage = await this.getFriends();
     friendsStorage[friendsStorage.findIndex(f => f.id === friend.id)] = friend;
-    localStorage.setItem('friends', JSON.stringify(friendsStorage));
+    await this._storage?.set('friends', JSON.stringify(friendsStorage));
   }
 
-  deleteFriendById(id: number) {
-    let friendsStorage = this.getFriends();
+  async deleteFriendById(id: number) {
+    let friendsStorage = await this.getFriends();
     friendsStorage.splice(friendsStorage.findIndex(f => f.id === id), 1);
-    localStorage.setItem('friends', JSON.stringify(friendsStorage));
+    await this._storage?.set('friends', JSON.stringify(friendsStorage));
   }
 
-  addFriend(friend: Friend) {
-    let friendsStorage = this.getFriends();
-    friend = {...friend, id: friendsStorage.at(-1).id + 1, achievements: []}
+  async addFriend(friend: Friend) {
+    let friendsStorage = await this.getFriends();
+    friend = {id: friendsStorage.at(-1).id + 1, ...friend, achievements: []}
     friendsStorage.push(friend);
-    localStorage.setItem('friends', JSON.stringify(friendsStorage));
+    await this._storage?.set('friends', JSON.stringify(friendsStorage));
   }
 
-  getUser() {
-    let userStorage = localStorage.getItem('user');
+  async getUser() {
+    let userStorage = await this._storage?.get('user');
     if(!userStorage) {
-      localStorage.setItem('user', JSON.stringify(user))
+      await this._storage?.set('user', JSON.stringify(user))
       return user
     }
     return JSON.parse(userStorage)
   }
 
-  getMissions() {
-    let missionsStorage = localStorage.getItem('missions');
+  async getMissions() {
+    let missionsStorage = await this._storage?.get('missions');
     if(!missionsStorage) {
-      localStorage.setItem('missions', JSON.stringify(missions))
+      await this._storage?.set('missions', JSON.stringify(missions))
       return missions
     }
     return JSON.parse(missionsStorage)
   }
 
-  getMissionById(id: number) {
-    return this.getMissions().find(m => m.id == id)
+  async getMissionById(id: number) {
+    const missions = await this.getMissions()
+    return missions.find(m => m.id == id)
   }
 
 

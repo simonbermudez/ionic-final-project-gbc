@@ -11,10 +11,11 @@ export class MissionsPage implements OnInit {
   missions: Mission[];
 
   constructor(private db: DatabaseService) { 
-    this.missions = db.getMissions()
+    db.getMissions().then(missions => this.missions = missions)
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.db.init()
   }
 
 }

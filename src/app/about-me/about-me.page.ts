@@ -9,12 +9,13 @@ import { DatabaseService } from '../shared/database.service';
 })
 export class AboutMePage implements OnInit {
   user: Friend;
-  
+
   constructor(private db: DatabaseService) { 
-    this.user = db.getUser()
+    db.getUser().then(user => this.user = user)
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.db.init()
   }
 
 }

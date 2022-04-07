@@ -15,10 +15,11 @@ export class MissionPage implements OnInit {
   constructor(private navController: NavController, 
               private actRoute: ActivatedRoute, 
               private db: DatabaseService) { 
-    this.mission = db.getMissionById(actRoute.snapshot.params.id)
+    db.getMissionById(actRoute.snapshot.params.id).then(mission => this.mission = mission) 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.db.init()
   }
 
   goBack() {

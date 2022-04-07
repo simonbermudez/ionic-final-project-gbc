@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'add-friend',
     loadChildren: () => import('./add-friend/add-friend.module').then( m => m.AddFriendPageModule)
+  },
+  {
+    path: 'edit-mission',
+    loadChildren: () => import('./edit-mission/edit-mission.module').then( m => m.EditMissionPageModule)
   }
 ];
 @NgModule({

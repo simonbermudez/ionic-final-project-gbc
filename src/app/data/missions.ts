@@ -7,7 +7,9 @@ let missions: Mission[] = [
         location: {
             latitude: 43.678041,
             longitude: -79.4116326
-        }
+        },
+        tasks: "Look for professor Pawluk and give him an apple",
+        tags: ['easy','fun']
     },
     {
         id: 2,
@@ -15,7 +17,19 @@ let missions: Mission[] = [
         location: {
             latitude: 43.6513016,
             longitude: -79.3724301
-        }
+        },
+        tasks: "Go to St. Lawrence Market",
+        tags: ['medium','fun']
+    },
+    {
+        id: 3,
+        name: "Waterfront",
+        location: {
+            latitude: 43.6439664,
+            longitude: -79.367664
+        },
+        tasks: "Take a picture of the lake",
+        tags: ['easy','fun']
     }
 ]
 

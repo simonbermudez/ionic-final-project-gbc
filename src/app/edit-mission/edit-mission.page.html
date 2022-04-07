@@ -1,14 +1,15 @@
 <ion-header>
+  
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Add Mission</ion-title>
+    <ion-title>edit-mission</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="missionForm" (ngSubmit)="onSubmit()" novalidate>
+  <form *ngIf="missionForm" [formGroup]="missionForm" (ngSubmit)="onSubmit()" novalidate>
     <ion-item lines="full">
       <ion-label position="floating">Name</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
@@ -31,9 +32,8 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="success" expand="block">Add Mission</ion-button>
+        <ion-button type="submit" color="warning" expand="block">Edit Mission</ion-button>
       </ion-col>
     </ion-row>
   </form>
-
 </ion-content>

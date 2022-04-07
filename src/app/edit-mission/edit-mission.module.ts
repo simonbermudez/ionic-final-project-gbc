@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddMissionPageRoutingModule } from './add-mission-routing.module';
+import { EditMissionPageRoutingModule } from './edit-mission-routing.module';
 
-import { AddMissionPage } from './add-mission.page';
+import { EditMissionPage } from './edit-mission.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddMissionPageRoutingModule,
+    EditMissionPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AddMissionPage]
+  declarations: [EditMissionPage]
 })
-export class AddMissionPageModule {}
+export class EditMissionPageModule {}

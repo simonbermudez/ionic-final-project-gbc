@@ -4,6 +4,7 @@ import missions from '../data/missions';
 import user from '../data/user';
 import { Friend } from '../models/friend';
 import { Storage } from '@ionic/storage-angular';
+import { Mission } from '../models/mission';
 
 @Injectable({
   providedIn: 'root'
@@ -76,5 +77,23 @@ export class DatabaseService {
     return missions.find(m => m.id == id)
   }
 
+  async addMission(mission: Mission) {
+    let missionsStorage = await this.getMissions();
+    mission = {id: missionsStorage.at(-1).id + 1, ...mission}
+    missionsStorage.push(mission);
+    await this._storage?.set('missions', JSON.stringify(missionsStorage));
+  }
+
+  async updateMission(mission: Mission) {
+    let missionsStorage = await this.getMissions();
+    missionsStorage[missionsStorage.findIndex(f => f.id === mission.id)] = mission;
+    await this._storage?.set('missions', JSON.stringify(missionsStorage));
+  }
+
+  async deleteMissionById(id: number) {
+    let missionsStorage = await this.getMissions();
+    missionsStorage.splice(missionsStorage.findIndex(f => f.id === id), 1);
+    await this._storage?.set('missions', JSON.stringify(missionsStorage));
+  }
 
 }

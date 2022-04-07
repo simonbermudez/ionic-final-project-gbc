@@ -10,12 +10,19 @@ import { DatabaseService } from '../shared/database.service';
 export class MissionsPage implements OnInit {
   missions: Mission[];
 
-  constructor(private db: DatabaseService) { 
-    db.getMissions().then(missions => this.missions = missions)
-  }
+  constructor(private db: DatabaseService) { }
 
   async ngOnInit() {
     this.db.init()
   }
 
+  async ionViewWillEnter() {
+    const missions = await this.db.getMissions()
+    this.missions = missions
+  }
+  
+
+  share(mission) {
+    alert(mission.name)
+  }
 }

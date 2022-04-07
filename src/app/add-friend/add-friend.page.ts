@@ -32,7 +32,8 @@ export class AddFriendPage implements OnInit {
 
   goBack() {
     // TODO: navigate to friends tab page, do not use navigate back because it doesn't trigger ionViewWillEnter
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
+    this.navController.back()
   }
 
   onSubmit() {

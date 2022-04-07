@@ -26,4 +26,9 @@ export class MissionPage implements OnInit {
     this.navController.back();
   }
 
+  deleteMission(id: number) {
+    this.db.deleteMissionById(id);
+    this.goBack()
+  }
+
 }

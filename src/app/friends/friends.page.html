@@ -9,8 +9,7 @@
   <!-- List of Input Items -->
 <ion-list>
   <ion-item *ngFor="let friend of friends">
-    <ion-label>{{ friend.name }}</ion-label>
-    <ion-button [routerLink]="['/about-friend', friend.id]" routerLinkActive="router-link-active" >View</ion-button>
+    <ion-label [routerLink]="['/about-friend', friend.id]">{{ friend.name }}</ion-label>
     <ion-button [routerLink]="['/edit-friend', friend.id]">Edit</ion-button>
   </ion-item>
 </ion-list>

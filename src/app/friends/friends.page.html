@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Friends</ion-title>
-    <ion-button slot="end" [routerLink]="['/add-friend']">+</ion-button>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/add-friend']">
+        <ion-icon slot="start" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +14,11 @@
 <ion-list>
   <ion-item *ngFor="let friend of friends">
     <ion-label [routerLink]="['/about-friend', friend.id]">{{ friend.name }}</ion-label>
-    <ion-button [routerLink]="['/edit-friend', friend.id]">Edit</ion-button>
+    <ion-buttons>
+      <ion-button [routerLink]="['/edit-friend', friend.id]" >
+        <ion-icon slot="start" name="pencil"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-item>
 </ion-list>
 </ion-content>

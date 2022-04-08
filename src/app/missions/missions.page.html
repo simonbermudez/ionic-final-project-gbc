@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Missions</ion-title>
-    <ion-button slot="end" [routerLink]="['/add-mission']">+</ion-button>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/add-mission']">
+        <ion-icon slot="start" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +13,11 @@
   <ion-list>
     <ion-item *ngFor="let mission of missions">
       <ion-label [routerLink]="['/mission', mission.id]">{{ mission.name }}</ion-label>
-      <ion-button  (click)="share(mission)" routerLinkActive="router-link-active" >Share</ion-button>
+      <ion-buttons>
+        <ion-button  (click)="share(mission)" routerLinkActive="router-link-active" >
+          <ion-icon slot="start" name="share"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 </ion-content>

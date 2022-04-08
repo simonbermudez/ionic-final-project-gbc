@@ -49,7 +49,7 @@ export class DatabaseService {
 
   async addFriend(friend: Friend) {
     let friendsStorage = await this.getFriends();
-    friend = {id: friendsStorage.at(-1).id + 1, ...friend, achievements: []}
+    friend = {id: friendsStorage[friendsStorage.length - 1].id + 1, ...friend, achievements: []}
     friendsStorage.push(friend);
     await this._storage?.set('friends', JSON.stringify(friendsStorage));
   }
@@ -79,7 +79,7 @@ export class DatabaseService {
 
   async addMission(mission: Mission) {
     let missionsStorage = await this.getMissions();
-    mission = {id: missionsStorage.at(-1).id + 1, ...mission}
+    mission = {id: missionsStorage[missionsStorage.length - 1].id + 1, ...mission}
     missionsStorage.push(mission);
     await this._storage?.set('missions', JSON.stringify(missionsStorage));
   }

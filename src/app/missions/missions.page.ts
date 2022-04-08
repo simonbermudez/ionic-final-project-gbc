@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Mission } from '../models/mission';
 import { DatabaseService } from '../shared/database.service';
 
+
 @Component({
   selector: 'app-missions',
   templateUrl: './missions.page.html',
@@ -16,11 +17,14 @@ export class MissionsPage implements OnInit {
     this.db.init()
   }
 
-  async ionViewWillEnter() {
+  async ionViewWillEnter() {    
+    await this.loadMissions()
+  }
+  
+  async loadMissions() {
     const missions = await this.db.getMissions()
     this.missions = missions
   }
-  
 
   share(mission) {
     alert(mission.name)

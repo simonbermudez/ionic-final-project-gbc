@@ -20,6 +20,7 @@ export class MissionPage implements OnInit {
 
   async ngOnInit() {
     await this.db.init()
+    
   }
 
   goBack() {

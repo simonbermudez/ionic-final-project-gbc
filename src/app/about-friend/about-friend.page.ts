@@ -19,8 +19,4 @@ export class AboutFriendPage implements OnInit {
   async ngOnInit() {
     await this.db.init()
   }
-
-  goBack() {
-    this.navController.back();
-  }
 } 

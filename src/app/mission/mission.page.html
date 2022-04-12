@@ -45,6 +45,15 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
+
+      <ion-row>
+        <ion-col>
+          <ion-button *ngIf="mission" [routerLink]="['/edit-mission', mission.id]" routerLinkActive="router-link-active" color="medium" expand="block">Edit</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="deleteMission(mission.id)" color="light" expand="block" expand="block">Delete</ion-button>
+        </ion-col>
+      </ion-row>  
      
     </ion-card-content>
   </ion-card>

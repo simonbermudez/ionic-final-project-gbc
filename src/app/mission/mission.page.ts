@@ -10,17 +10,17 @@ import { DatabaseService } from '../shared/database.service';
   styleUrls: ['./mission.page.scss'],
 })
 export class MissionPage implements OnInit {
-  mission: Mission
+  mission: Mission;
+  loading = true;
 
-  constructor(private navController: NavController, 
-              private actRoute: ActivatedRoute, 
-              private db: DatabaseService) { 
-    db.getMissionById(actRoute.snapshot.params.id).then(mission => this.mission = mission) 
+  constructor(private navController: NavController,
+              private actRoute: ActivatedRoute,
+              private db: DatabaseService) {
+    db.getMissionById(actRoute.snapshot.params.id).then(mission => {this.mission = mission; this.loading = false;});
   }
 
   async ngOnInit() {
-    await this.db.init()
-    
+    await this.db.init();
   }
 
   goBack() {
@@ -29,7 +29,7 @@ export class MissionPage implements OnInit {
 
   deleteMission(id: number) {
     this.db.deleteMissionById(id);
-    this.goBack()
+    this.goBack();
   }
 
 }

@@ -4,10 +4,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  {{user | json}}
-  <br>
-  <ion-button [routerLink]="['/about-us']">
-    <ion-label>About the Project</ion-label>
-  </ion-button>
+<ion-content class="center" >
+  
+  <ng-container *ngIf="loading then spinner else card">
+  </ng-container>
+  
 </ion-content>
+
+
+<ng-template #card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{user.name}}</ion-card-title>
+      <ion-card-subtitle>{{user.email}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Level</ion-label>
+          <ion-note slot="end" color="primary">{{user.level}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Phone</ion-label>
+          <ion-note slot="end" color="primary">{{user.phone_number}}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="user.achievements.length">
+          <ion-label>Achievements</ion-label>
+          <ion-note slot="end" color="primary">{{user.achievements.length}}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
+
+<ng-template #spinner>
+  <div class="center">
+    <ion-spinner name="lines" class="spinner"></ion-spinner>
+  </div>
+</ng-template>

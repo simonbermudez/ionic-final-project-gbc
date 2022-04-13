@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Mission } from '../models/mission';
 import { DatabaseService } from '../shared/database.service';
-
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-missions',

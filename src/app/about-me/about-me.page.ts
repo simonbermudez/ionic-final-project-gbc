@@ -19,4 +19,11 @@ export class AboutMePage implements OnInit {
     await this.db.init();
   }
 
+  call() {
+    window.open(`tel:${this.user.phone_number}`, '_system');
+  }
+  email(){
+    window.open('mailto:' + this.user.email);
+  }
+
 }

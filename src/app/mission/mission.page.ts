@@ -20,6 +20,11 @@ export class MissionPage implements OnInit {
   mission: Mission;
   loading = true;
   map: any;
+  myLoc: any;
+
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
+  // directionForm: FormGroup;
 
   constructor(private navController: NavController,
               private actRoute: ActivatedRoute,
@@ -43,10 +48,33 @@ export class MissionPage implements OnInit {
 
   // map methods
   async ionViewDidEnter() {
+    this.showMap();
     this.getCurrentLocation();
   }
 
-  showMap(loc: any) {
+  calculateAndDisplayRoute() {
+    const that = this;
+    console.log('debug');
+    console.log('current latit: ' + this.myLoc.coords.latitude);
+    console.log('current longi: ' + this.myLoc.coords.longitude);
+    console.log('destination latit: ' + this.mission.location.latitude);
+    console.log('destination longi: ' + this.mission.location.longitude);
+
+    this.directionsService
+      .route({
+        origin: "100 sprucewood",
+        destination: "85 Thorncliffe park",
+        travelMode: google.maps.TravelMode.DRIVING,
+    }, (response, status) => {
+      if (status === 'OK') {
+        that.directionsRenderer.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
+  showMap() {
     const location = new google.maps.LatLng(this.mission.location.latitude, this.mission.location.longitude);
     const options = {
       center: location,
@@ -54,21 +82,22 @@ export class MissionPage implements OnInit {
       disableDefaultUI: true
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-    this.addMarkerToMap(loc);
+    this.addMarkerToMap();
   }
 
   async getCurrentLocation() {
     const coordinates = await Geolocation.getCurrentPosition();
-    this.showMap(coordinates);
+    console.log("current location: " + coordinates.coords.latitude)
+    this.myLoc = coordinates;
     console.log(coordinates);
   }
 
-  addMarkerToMap(loc: any) {
-    let position = new google.maps.LatLng(this.mission.location.latitude, this.mission.location.longitude);
-    let mapMarker = new google.maps.Marker({
+  addMarkerToMap() {
+    const position = new google.maps.LatLng(this.mission.location.latitude, this.mission.location.longitude);
+    const mapMarker = new google.maps.Marker({
       position,
       title: this.mission.name,
-      latitude: this.mission.location.longitude,
+      latitude: this.mission.location.latitude,
       longitude: this.mission.location.longitude,
       task: this.mission.tasks,
       tags: this.mission.tags

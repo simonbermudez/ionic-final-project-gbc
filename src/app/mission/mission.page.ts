@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -79,7 +80,7 @@ export class MissionPage implements OnInit {
   customNavigate() {
     console.log('navigate button clicked');
     // navigate using google maps
-    // eslint-disable-next-line max-len
+    // this is useless now
     window.open('https://www.google.com/maps/dir?api=1&destination=' + this.mission.location.latitude + ',' + this.mission.location.longitude);
   }
 }

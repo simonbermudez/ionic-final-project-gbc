@@ -15,10 +15,12 @@ export class AboutFriendPage implements OnInit {
   loading = true;
 
   constructor(private navController: NavController, private actRoute: ActivatedRoute, private db: DatabaseService) {
-    db.getFriendById(actRoute.snapshot.params.id).then(friend => {
-      this.friend = friend;
-      this.loading = false;
-    });
+  }
+
+  async ionViewWillEnter() {
+    let friend = await this.db.getFriendById(this.actRoute.snapshot.params.id);
+    this.friend = friend;
+    this.loading = false;
   }
 
   async ngOnInit() {

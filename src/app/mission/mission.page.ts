@@ -16,11 +16,16 @@ export class MissionPage implements OnInit {
   constructor(private navController: NavController,
               private actRoute: ActivatedRoute,
               private db: DatabaseService) {
-    db.getMissionById(actRoute.snapshot.params.id).then(mission => {this.mission = mission; this.loading = false;});
   }
 
   async ngOnInit() {
     await this.db.init();
+  }
+
+  async ionViewWillEnter() {
+    let mission = await this.db.getMissionById(this.actRoute.snapshot.params.id);
+    this.mission = mission;
+    this.loading = false;
   }
 
   goBack() {

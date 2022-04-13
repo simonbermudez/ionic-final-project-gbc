@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="goBack()"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Mission</ion-title>
   </ion-toolbar>
@@ -43,6 +43,15 @@
               <ion-label color="primary">{{tag}}</ion-label>
             </ion-item>
           </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Rating</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon *ngFor="let star of [].constructor(mission.rating)" name='star'></ion-icon>
         </ion-card-content>
       </ion-card>
 

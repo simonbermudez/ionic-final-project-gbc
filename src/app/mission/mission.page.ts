@@ -81,6 +81,6 @@ export class MissionPage implements OnInit {
     console.log('navigate button clicked');
     // navigate using google maps
     // this is useless now
-    window.open('https://www.google.com/maps/dir?api=1&destination=' + this.mission.location.latitude + ',' + this.mission.location.longitude);
+    // window.open('https://www.google.com/maps/dir?api=1&destination=' + this.mission.location.latitude + ',' + this.mission.location.longitude);
   }
 }

@@ -60,6 +60,7 @@ export class MissionPage implements OnInit {
 
   async geocodeLatLng(){
     const coordinates = await Geolocation.getCurrentPosition();
+
     const latlngMission = {
       lat: this.mission.location.latitude,
       lng: this.mission.location.longitude
@@ -75,7 +76,7 @@ export class MissionPage implements OnInit {
     this.geocoder
       .geocode({ location: latlngMission })
       .then((response) => {
-        console.log('response: ' + response.results[0].formatted_address);
+        console.log('MISSION: ' + response.results[0].formatted_address);
         this.missionLoc = response.results[0].formatted_address;
       })
       .catch((e) => window.alert('Geocoder failed due to: ' + e));
@@ -84,7 +85,7 @@ export class MissionPage implements OnInit {
     this.geocoder
       .geocode({ location: latlngCurrent })
       .then((response) => {
-        console.log('response: ' + response.results[0].formatted_address);
+        console.log('CURRENT: ' + response.results[0].formatted_address);
         this.currentLoc = response.results[0].formatted_address;
       })
       .catch((e) => window.alert('Geocoder failed due to: ' + e));
@@ -101,7 +102,7 @@ export class MissionPage implements OnInit {
     that.directionsService
       .route({
         origin: this.currentLoc,
-        destination: this.missionLoc,
+        destination: '151 A Queens Quay E, Toronto, ON M5A 1B6, Canada',
         travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === 'OK') {
@@ -112,7 +113,7 @@ export class MissionPage implements OnInit {
       }
     });
   }
- 
+
   async getCurrentLocation() {
     const coordinates = await Geolocation.getCurrentPosition();
     this.myLoc = coordinates;
@@ -134,3 +135,7 @@ export class MissionPage implements OnInit {
     this.calculateAndDisplayRoute();
   }
 }
+
+
+// use this to see what the api looks like
+//https://maps.googleapis.com/maps/api/geocode/json?latlng=43.7941924,-79.3242791&location_type=ROOFTOP&result_type=street_address&key=AIzaSyAlbsGTKEPFBku2fC-ASPMeKQWRehE2iVg

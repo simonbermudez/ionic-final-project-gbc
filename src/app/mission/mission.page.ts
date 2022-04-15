@@ -17,14 +17,20 @@ declare let google: any;
 export class MissionPage implements OnInit {
 
   @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
+
   mission: Mission;
   loading = true;
+
   map: any;
   myLoc: any;
+  currentLoc: string;
+  missionLoc: string;
 
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
-  // directionForm: FormGroup;
+
+  geocoder = new google.maps.Geocoder();
+  infowindow = new google.maps.InfoWindow();
 
   constructor(private navController: NavController,
               private actRoute: ActivatedRoute,
@@ -52,26 +58,66 @@ export class MissionPage implements OnInit {
     this.getCurrentLocation();
   }
 
-  calculateAndDisplayRoute() {
-    const that = this;
-    console.log('debug');
-    console.log('current latit: ' + this.myLoc.coords.latitude);
-    console.log('current longi: ' + this.myLoc.coords.longitude);
-    console.log('destination latit: ' + this.mission.location.latitude);
-    console.log('destination longi: ' + this.mission.location.longitude);
+  async geocodeLatLng(){
+    const coordinates = await Geolocation.getCurrentPosition();
+    const latlngMission = {
+      lat: this.mission.location.latitude,
+      lng: this.mission.location.longitude
+    };
+    // console.log(coordinates.coords.latitude);
+    console.log(coordinates.coords.latitude);
+    const latlngCurrent = {
+      lat: coordinates.coords.latitude,
+      lng: coordinates.coords.longitude
+    };
 
-    this.directionsService
+    // decoding mission address
+    this.geocoder
+      .geocode({ location: latlngMission })
+      .then((response) => {
+        console.log('response: ' + response.results[0].formatted_address);
+        this.missionLoc = response.results[0].formatted_address;
+      })
+      .catch((e) => window.alert('Geocoder failed due to: ' + e));
+
+    // decoding current address
+    this.geocoder
+      .geocode({ location: latlngCurrent })
+      .then((response) => {
+        console.log('response: ' + response.results[0].formatted_address);
+        this.currentLoc = response.results[0].formatted_address;
+      })
+      .catch((e) => window.alert('Geocoder failed due to: ' + e));
+
+  }
+
+  calculateAndDisplayRoute(
+
+  ) {
+    const that = this;
+
+    this.geocodeLatLng();
+
+    that.directionsService
       .route({
-        origin: "100 sprucewood",
-        destination: "85 Thorncliffe park",
-        travelMode: google.maps.TravelMode.DRIVING,
+        origin: this.currentLoc,
+        destination: this.missionLoc,
+        travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === 'OK') {
+        console.log('its good to draw');
         that.directionsRenderer.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+ 
+  async getCurrentLocation() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    this.myLoc = coordinates;
+    console.log('debug current = ' + coordinates.coords.latitude);
+    console.log('debug current = ' + coordinates.coords.longitude);
   }
 
   showMap() {
@@ -82,34 +128,9 @@ export class MissionPage implements OnInit {
       disableDefaultUI: true
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-    this.addMarkerToMap();
-  }
-
-  async getCurrentLocation() {
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log("current location: " + coordinates.coords.latitude)
-    this.myLoc = coordinates;
-    console.log(coordinates);
-  }
-
-  addMarkerToMap() {
-    const position = new google.maps.LatLng(this.mission.location.latitude, this.mission.location.longitude);
-    const mapMarker = new google.maps.Marker({
-      position,
-      title: this.mission.name,
-      latitude: this.mission.location.latitude,
-      longitude: this.mission.location.longitude,
-      task: this.mission.tasks,
-      tags: this.mission.tags
-    });
-    mapMarker.setMap(this.map);
-    // this.addInfoWindowToMarker(mapMarker);
-  }
-
-  customNavigate() {
-    console.log('navigate button clicked');
-    // navigate using google maps
-    // this is useless now
-    // window.open('https://www.google.com/maps/dir?api=1&destination=' + this.mission.location.latitude + ',' + this.mission.location.longitude);
+    // sets map on mission location
+    this.directionsRenderer.setMap(this.map);
+    // calculates/draws directions
+    this.calculateAndDisplayRoute();
   }
 }

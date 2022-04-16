@@ -51,11 +51,6 @@
 
       <ion-row>
         <ion-col>
-           <ion-button (click)="getCurrentLocation()">Navigate</ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
           <ion-button *ngIf="mission" [routerLink]="['/edit-mission', mission.id]" routerLinkActive="router-link-active" color="medium" expand="block">Edit</ion-button>
         </ion-col>
         <ion-col>

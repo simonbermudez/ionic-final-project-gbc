@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../about-me/about-me.module').then(m => m.AboutMePageModule)
       },
       {
+        path: 'mission-map',
+        loadChildren: () => import('../mission-map/mission-map.module').then(m => m.MissionMapPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/missions',
         pathMatch: 'full'

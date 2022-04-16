@@ -6,6 +6,7 @@ import { Mission } from '../models/mission';
 import { DatabaseService } from '../shared/database.service';
 
 import { Geolocation } from '@capacitor/geolocation';
+import { MissionMapPage } from '../mission-map/mission-map.page';
 
 declare let google: any;
 
@@ -51,7 +52,6 @@ export class MissionPage implements OnInit {
     this.db.deleteMissionById(id);
     this.goBack();
   }
-
 
   // map methods
   async ionViewDidEnter() {

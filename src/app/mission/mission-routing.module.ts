@@ -6,7 +6,13 @@ import { MissionPage } from './mission.page';
 const routes: Routes = [
   {
     path: ':id',
-    component: MissionPage
+    component: MissionPage,
+    children: [
+      {
+        path: 'mission-map',
+        loadChildren: () => import('../mission-map/mission-map.module').then(m => m.MissionMapPageModule)
+      }
+    ]
   }
 ];
 

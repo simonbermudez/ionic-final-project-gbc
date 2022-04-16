@@ -23,6 +23,7 @@ export class MissionPage implements OnInit {
 
   map: any;
   myLoc: any;
+
   currentLoc: string;
   missionLoc: string;
 
@@ -56,6 +57,7 @@ export class MissionPage implements OnInit {
   async ionViewDidEnter() {
     this.showMap();
     this.getCurrentLocation();
+    await this.geocodeLatLng();
   }
 
   async geocodeLatLng(){
@@ -65,48 +67,45 @@ export class MissionPage implements OnInit {
       lat: this.mission.location.latitude,
       lng: this.mission.location.longitude
     };
-    // console.log(coordinates.coords.latitude);
-    console.log(coordinates.coords.latitude);
+
     const latlngCurrent = {
       lat: coordinates.coords.latitude,
       lng: coordinates.coords.longitude
     };
 
-    // decoding mission address
+    // decoding mission and current long/lat to string address
+    // I nested it cuz I was having problem with a returned promise
     this.geocoder
       .geocode({ location: latlngMission })
       .then((response) => {
         console.log('MISSION: ' + response.results[0].formatted_address);
         this.missionLoc = response.results[0].formatted_address;
+        // testing bellow
+        this.geocoder
+          .geocode({ location: latlngCurrent })
+          .then((response_2) => {
+            console.log('CURRENT: ' + response_2.results[0].formatted_address);
+            this.currentLoc = response_2.results[0].formatted_address;
+            //nested testing
+            this.calculateAndDisplayRoute(this.currentLoc, this.missionLoc);
+            // nested testing ends here
+          })
+          .catch((e) => window.alert('Geocoder failed due to: ' + e));
+        // testing ends here
       })
       .catch((e) => window.alert('Geocoder failed due to: ' + e));
-
-    // decoding current address
-    this.geocoder
-      .geocode({ location: latlngCurrent })
-      .then((response) => {
-        console.log('CURRENT: ' + response.results[0].formatted_address);
-        this.currentLoc = response.results[0].formatted_address;
-      })
-      .catch((e) => window.alert('Geocoder failed due to: ' + e));
-
   }
 
-  calculateAndDisplayRoute(
-
-  ) {
+  calculateAndDisplayRoute(current: string, mission: string) {
     const that = this;
-
-    this.geocodeLatLng();
 
     that.directionsService
       .route({
-        origin: this.currentLoc,
-        destination: '151 A Queens Quay E, Toronto, ON M5A 1B6, Canada',
+        origin: current,
+        destination: mission,
         travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === 'OK') {
-        console.log('its good to draw');
         that.directionsRenderer.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -117,8 +116,6 @@ export class MissionPage implements OnInit {
   async getCurrentLocation() {
     const coordinates = await Geolocation.getCurrentPosition();
     this.myLoc = coordinates;
-    console.log('debug current = ' + coordinates.coords.latitude);
-    console.log('debug current = ' + coordinates.coords.longitude);
   }
 
   showMap() {
@@ -129,13 +126,9 @@ export class MissionPage implements OnInit {
       disableDefaultUI: true
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+    // // calculates/draws directions
+    // this.geocodeLatLng();
     // sets map on mission location
     this.directionsRenderer.setMap(this.map);
-    // calculates/draws directions
-    this.calculateAndDisplayRoute();
   }
 }
-
-
-// use this to see what the api looks like
-//https://maps.googleapis.com/maps/api/geocode/json?latlng=43.7941924,-79.3242791&location_type=ROOFTOP&result_type=street_address&key=AIzaSyAlbsGTKEPFBku2fC-ASPMeKQWRehE2iVg

@@ -27,7 +27,8 @@ export class EditMissionPage implements OnInit {
           latitude: [this.mission.location.latitude, Validators.required],
           longitude: [this.mission.location.longitude, Validators.required],
           tasks: [this.mission.tasks, Validators.required],
-          tags: [this.mission.tags.join(', '), Validators.required]
+          tags: [this.mission.tags.join(', '), Validators.required],
+          rating: [this.mission.rating, [Validators.required, ]]
         })
       })
 
@@ -52,7 +53,8 @@ export class EditMissionPage implements OnInit {
         longitude: this.missionForm.value.longitude,
       },
       tasks: this.missionForm.value.tasks,
-      tags: this.missionForm.value.tags.split(", ")
+      tags: this.missionForm.value.tags.split(", "),
+      rating: this.missionForm.value.rating
     } as Mission)
     this.goBack()
   }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="goBack()"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Mission</ion-title>
   </ion-toolbar>
@@ -16,13 +16,16 @@
 
 
 <ng-template #card>
+  
+  <div #map id="map"></div>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{mission.name}}</ion-card-title>
       <ion-card-subtitle>Lat: {{mission.location.latitude | number}} - Long: {{mission.location.longitude | number}} </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-
+      
       <!-- Tasks -->
       <ion-card *ngIf="mission.tasks">
         <ion-card-header>
@@ -46,6 +49,20 @@
         </ion-card-content>
       </ion-card>
 
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Rating</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon *ngFor="let star of [].constructor(mission.rating)" name='star'></ion-icon>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-row>
+        <ion-col>
+           <ion-button [routerLink]="['/mission-map', mission]">Navigate</ion-button>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col>
           <ion-button *ngIf="mission" [routerLink]="['/edit-mission', mission.id]" routerLinkActive="router-link-active" color="medium" expand="block">Edit</ion-button>
@@ -57,6 +74,8 @@
      
     </ion-card-content>
   </ion-card>
+
+  
 
 </ng-template>
 

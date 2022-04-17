@@ -9,7 +9,8 @@ let missions: Mission[] = [
             longitude: -79.4116326
         },
         tasks: "Look for professor Pawluk and give him an apple",
-        tags: ['easy','fun']
+        tags: ['easy','fun'],
+        rating: 5
     },
     {
         id: 2,
@@ -19,7 +20,8 @@ let missions: Mission[] = [
             longitude: -79.3724301
         },
         tasks: "Go to St. Lawrence Market",
-        tags: ['medium','fun']
+        tags: ['medium','fun'],
+        rating: 4
     },
     {
         id: 3,
@@ -29,7 +31,8 @@ let missions: Mission[] = [
             longitude: -79.367664
         },
         tasks: "Take a picture of the lake",
-        tags: ['easy','fun']
+        tags: ['easy','fun'],
+        rating: 3
     }
 ]
 

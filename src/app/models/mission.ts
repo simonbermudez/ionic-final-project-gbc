@@ -6,4 +6,5 @@ export interface Mission {
     location: Location;
     tasks: string;
     tags: string[];
+    rating: number;
 }

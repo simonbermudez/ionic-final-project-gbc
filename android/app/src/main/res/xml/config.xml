@@ -5,6 +5,10 @@
   <feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
   </feature>
+  
+  <feature name="CallNumber">
+    <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber"/>
+  </feature>
 
   
 </widget>

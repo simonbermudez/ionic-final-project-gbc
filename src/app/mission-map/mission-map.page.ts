@@ -100,7 +100,7 @@ export class MissionMapPage implements OnInit {
     const options = {
       center: location,
       zoom: 15,
-      disableDefaultUI: true
+      disableDefaultUI: false
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.directionsRenderer.setMap(this.map);

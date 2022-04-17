@@ -128,7 +128,7 @@ export class MissionPage implements OnInit {
     const options = {
       center: location,
       zoom: 15,
-      disableDefaultUI: true
+      disableDefaultUI: false
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     // // calculates/draws directions

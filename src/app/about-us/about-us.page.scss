@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;500&display=swap');
+h1{
+    color: rgb(103, 31, 171);
+    font-family: 'Anek Gujarati', sans-serif;
+}
+h2{
+    color: rgb(103, 31, 171);
+    font-family: 'Anek Gujarati', sans-serif;
+}
+.names{
+    color: rgb(103, 31, 171);
+    list-style-type: none;
+}
+
+.text {
+    text-align: center;
+    color: rgb(103, 31, 171);
+}
+
+.title {
+    text-align: center;
+    color: rgb(103, 31, 171);
+    text-transform: uppercase;
+}
+
+.members {
+    text-decoration: underline;
+}
+
+.content{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: aqua;
+}
+
+.body{
+    margin-top: 15%;
+
+}

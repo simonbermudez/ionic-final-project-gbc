@@ -26,4 +26,12 @@ export class AboutFriendPage implements OnInit {
   async ngOnInit() {
     await this.db.init();
   }
+
+  call() {
+    window.open(`tel:${this.friend.phone_number}`, '_system');
+  }
+  email(){
+    window.open('mailto:' + this.friend.email);
+  }
+
 }
